@@ -1,9 +1,14 @@
 package actividades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ronda {
 	int numero;
 	
-	Partido partido=new Partido();
+	List<Partido> partido= new ArrayList<Partido>();
+	
+	
 	
 	
 	public Ronda() {
@@ -11,7 +16,7 @@ public class Ronda {
 	}
 	public Ronda(int numero, Partido partido) {
 		this.numero=numero;
-		this.partido=partido;
+		this.partido=(List<Partido>) partido;
 		
 	}
 	

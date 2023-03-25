@@ -1,6 +1,6 @@
 package actividades;
 
-public class Resultado {
+public class Main {
 	public static void main(String[] args) {
 		
 	Pronostico pronostico1=new Pronostico();
