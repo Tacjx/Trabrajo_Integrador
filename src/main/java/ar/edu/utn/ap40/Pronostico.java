@@ -1,5 +1,12 @@
 package ar.edu.utn.ap40;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Pronostico {
 	//Se rellena la informacion de los equipos con el archivo a leer en el main
 	//El pronostico tambien, se ejecuta el metodo pasandole el partido verdadero como objeto
@@ -7,8 +14,13 @@ public class Pronostico {
 	
 	Equipo ep1=new Equipo();
 	Equipo ep2=new Equipo();
-	String ganoep1;
-	String ganoep2;
+	private String ganoep1;
+	private String ganoep2;
+	
+	
+	public Pronostico() {
+		
+	}
 	
 	
 	public int resultadoP(String pronostico1, String pronostico2, Partido partido) {

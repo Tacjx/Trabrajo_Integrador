@@ -8,6 +8,7 @@ public class Ronda {
 	//tiene 2 contructores para poder llamar a la clase
 	
     int numero;
+    int maximo;
 	
 	ArrayList<Partido>partido= new ArrayList<Partido>();
 	

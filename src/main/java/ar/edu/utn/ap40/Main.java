@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -13,6 +14,7 @@ public class Main {
 		
 		Ronda ronda1=new Ronda();
 		ronda1.numero=1;
+		ronda1.maximo=2;
 		
 		try {
 			for(String linea:Files.readAllLines(Paths.get(ronda))) {
@@ -46,13 +48,13 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		
-		System.out.println(ronda1.partido.get(0).resultado(ronda1.partido.get(0).getGolesEquipo1(), ronda1.partido.get(0).getGolesEquipo2()));
-		
+				
 		String pronostico=new File("C:\\Users\\Usuario\\Desktop\\Git\\Pronosticos.csv").getAbsolutePath();
+		ArrayList<Pronostico>pronosticos=new ArrayList<Pronostico>();
+		
 		
 		try {
-			for(String linea:Files.readAllLines(Paths.get(ronda))) {
+			for(String linea:Files.readAllLines(Paths.get(pronostico))) {
 				
 				String[] valores=linea.split(",");
 				
@@ -63,7 +65,12 @@ public class Main {
 				
 				Pronostico pro=new Pronostico();
 				
+				pro.ep1.setNombre(equipoP1);
+				pro.ep2.setNombre(equipoP2);
+				pro.setGanoep1(marcador1);
+				pro.setGanoep2(marcador2);
 				
+				pronosticos.add(pro);
 				
 			}
 			
@@ -75,6 +82,17 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+		
+		for(int i=0;i<ronda1.maximo;i++) {
+			System.out.println("El ganador del partido fue:");
+			System.out.println(ronda1.partido.get(i).resultado(ronda1.partido.get(i).getGolesEquipo1(), ronda1.partido.get(i).getGolesEquipo2()));
+			
+			System.out.println("");
+			System.out.println("El resultado del pronostico fue:");
+			System.out.println(pronosticos.get(i).resultadoP(pronosticos.get(i).getGanoep1(), pronosticos.get(i).getGanoep2(), ronda1.partido.get(i)));
+			
+			System.out.println("");
+		}
 		
 		
 	}
