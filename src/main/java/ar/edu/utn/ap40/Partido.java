@@ -18,17 +18,19 @@ public class Partido {
 	private int golesEquipo2;
 	
 	
+	
+	
 	public Partido() {
 		
 	}
 	
 	//Este metodo se usa para obtener cual equipo gano el partido o si hubo un empate
 	public static String resultado(int goles1, int goles2) {
-	String resultado;
+	String resultado=null;
 	if(goles1<goles2) {
 		resultado="Gano el Equipo 2";
 	}
-	if(goles1>goles2) {
+	else if(goles1>goles2) {
 		resultado="Gano el Equipo 1";
 	} else {
 		resultado="Empate";

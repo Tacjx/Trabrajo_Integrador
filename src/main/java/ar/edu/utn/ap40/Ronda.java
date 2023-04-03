@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ronda {
-	//clase ronda donde se indica que numero es, se debe cambiar el llamado de partido por una lista
+	//clase ronda donde se indica que numero es
 	//tiene 2 contructores para poder llamar a la clase
 	
     int numero;
 	
-	Partido partido= new Partido();
+	ArrayList<Partido>partido= new ArrayList<Partido>();
 	
 	
 	
@@ -17,7 +17,7 @@ public class Ronda {
 	public Ronda() {
 		
 	}
-	public Ronda(int numero, Partido partido) {
+	public Ronda(int numero, ArrayList<Partido> partido) {
 		this.numero=numero;
 		this.partido=partido;
 		
