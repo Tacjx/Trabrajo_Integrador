@@ -10,6 +10,15 @@ public class Main {
 
 	public static void main(String[] args)  {
 		
+		//El programa utiliza el siguiente formato de archvios para trabajar:
+		//RONDA: Pais,puntaje,puntaje,Pais. Como en el cuadro
+		//PRONOSTICOS: Pais,marca, marca, Pais. Como en el cuadro
+		//Si no tiene una X, no va nada: ",,"
+		//La X representa que equipo se piensa que va a ganar, mientras que la nada indica que no se piensa que ese equipo vaya a ganar.
+		//Doble X,X indica empate.
+		
+		
+		
 		String ronda=new File("C:\\Users\\Usuario\\Desktop\\Git\\Ronda.csv").getAbsolutePath();
 		
 		Ronda ronda1=new Ronda();

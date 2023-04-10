@@ -18,6 +18,11 @@ public class Pronostico {
 	private String ganoep2;
 	
 	
+	//Se utiliza el constructor vacio para poder crear objetos de la clase sin pasarle parametros en el momento
+	//Y poder rellenarlo despues con loombok que crea los getters y setters
+	//Si no utilizo el constructor el programa no funciona.
+	
+	
 	public Pronostico() {
 		
 	}
