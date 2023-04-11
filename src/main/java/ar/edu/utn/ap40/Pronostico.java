@@ -12,9 +12,11 @@ public class Pronostico {
 	//El pronostico tambien, se ejecuta el metodo pasandole el partido verdadero como objeto
 	//Resolviendo asi si acerto a no el pronostico
 	
+	private String nombre;
 	Equipo ep1=new Equipo();
 	Equipo ep2=new Equipo();
 	private String ganoep1;
+	private String empate;
 	private String ganoep2;
 	
 	
@@ -28,32 +30,34 @@ public class Pronostico {
 	}
 	
 	
-	public int resultadoP(String pronostico1, String pronostico2, Partido partido) {
-		int goles1=partido.getGolesEquipo1();
-		int goles2=partido.getGolesEquipo2();
-		
+	
+	
+	
+	public int resultado(String marca1, String marca2, String marcaempate, String resultado) {
+		String prediccion="";
 		int puntaje=0;
-		String pronostico=null;
 		
-		if(pronostico1!=null && pronostico2==null) {
-			pronostico="Gano el Equipo 1";
+		if(marca1.equals("X")) {
+			prediccion="Gano el Equipo 1";
+			if(resultado==prediccion) {
+				puntaje++;
+			}
 		}
-		else if(pronostico1==null && pronostico2!=null) {
-			
-			pronostico="Gano el Equipo 2";
+		else if(marca2.equals("X")) {
+			prediccion="Gano el Equipo 2";
+			if(resultado==prediccion) {
+				puntaje++;
+			}
 		}
-		else if(pronostico1!=null && pronostico2!=null) {
-			pronostico="Empate";
+		else if(marcaempate.equals("X")) {
+			prediccion="Empate";
+			if(resultado==prediccion) {
+				puntaje++;
+			}
 		}
 		
 		
 		
-		if(partido.resultado(goles1, goles2)==pronostico) {
-			//Caso de Asertar el Pronostico
-			puntaje++;
-			
-		}
-		//Si no acierta se devuelve 0 puntos.
 		return puntaje;
 	}
 	

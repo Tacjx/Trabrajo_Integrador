@@ -11,29 +11,30 @@ public class Main {
 	public static void main(String[] args)  {
 		
 		//El programa utiliza el siguiente formato de archvios para trabajar:
-		//RONDA: Pais,puntaje,puntaje,Pais. Como en el cuadro
-		//PRONOSTICOS: Pais,marca, marca, Pais. Como en el cuadro
+		//RONDA:Numero,Pais,puntaje,puntaje,Pais. Como en el cuadro de la entega 2
+		//PRONOSTICOS:Nombre,Pais,marca,marca, marca, Pais. Como en el cuadro de la entrega 2
+		//Ejemplo tomas,argentina,X,0,0,polia
 		//Si no tiene una X, no va nada: ",,"
-		//La X representa que equipo se piensa que va a ganar, mientras que la nada indica que no se piensa que ese equipo vaya a ganar.
-		//Doble X,X indica empate.
+		//La X representa que equipo se piensa que va a ganar o empatar
+		//El 0 solo rellena el espacio para hacerlo mas facil de leer
+		//El programa no indica ninguna error por el momento, corre bien.
 		
+				
 		
+		String rondas=new File("C:\\Users\\Usuario\\Desktop\\Git\\resultados.csv").getAbsolutePath();
 		
-		String ronda=new File("C:\\Users\\Usuario\\Desktop\\Git\\Ronda.csv").getAbsolutePath();
-		
-		Ronda ronda1=new Ronda();
-		ronda1.numero=1;
-		ronda1.maximo=2;
+		Ronda ronda=new Ronda();
 		
 		try {
-			for(String linea:Files.readAllLines(Paths.get(ronda))) {
+			for(String linea:Files.readAllLines(Paths.get(rondas))) {
 				
 				String[] valores=linea.split(",");
 				
-				String equipo1=valores[0];
-				String goles1=valores[1];
-				String goles2=valores[2];
-				String equipo2=valores[3];
+				String numronda=valores[0];
+				String equipo1=valores[1];
+				String goles1=valores[2];
+				String goles2=valores[3];
+				String equipo2=valores[4];
 				
 				
 				Partido partido=new Partido();
@@ -42,8 +43,11 @@ public class Main {
 				partido.equipo2.setNombre(equipo2);
 				partido.setGolesEquipo2(Integer.parseInt(goles2));
 				
-				ronda1.partido.add(partido);
+				ronda.numero.add(numronda);
 				
+				ronda.partido.add(partido);
+				
+								
 				
 				
 				
@@ -58,7 +62,7 @@ public class Main {
 		}
 		
 				
-		String pronostico=new File("C:\\Users\\Usuario\\Desktop\\Git\\Pronosticos.csv").getAbsolutePath();
+		String pronostico=new File("C:\\Users\\Usuario\\Desktop\\Git\\pronosticosvarios.csv").getAbsolutePath();
 		ArrayList<Pronostico>pronosticos=new ArrayList<Pronostico>();
 		
 		
@@ -67,42 +71,93 @@ public class Main {
 				
 				String[] valores=linea.split(",");
 				
-				String equipoP1=valores[0];
-				String marcador1=valores[1];
-				String marcador2=valores[2];
-				String equipoP2=valores[3];
+				String nombre=valores[0];
+				String equipoP1=valores[1];
+				String marcador1=valores[2];
+				String empate=valores[3];
+				String marcador2=valores[4];
+				String equipoP2=valores[5];
 				
 				Pronostico pro=new Pronostico();
 				
+				pro.setNombre(nombre);
 				pro.ep1.setNombre(equipoP1);
 				pro.ep2.setNombre(equipoP2);
 				pro.setGanoep1(marcador1);
+				pro.setEmpate(empate);
 				pro.setGanoep2(marcador2);
 				
 				pronosticos.add(pro);
 				
-			}
 			
 			
 			
-			
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
-		for(int i=0;i<ronda1.maximo;i++) {
-			System.out.println("El ganador del partido fue:");
-			System.out.println(ronda1.partido.get(i).resultado(ronda1.partido.get(i).getGolesEquipo1(), ronda1.partido.get(i).getGolesEquipo2()));
+		int puntaje=0;
+		int punt=0;
+		
+		
+		System.out.println("Partidos Jugados en la Ronda:");
+		for(int i=0;i<ronda.numero.size();i++) {
+		
 			
-			System.out.println("");
-			System.out.println("El resultado del pronostico fue:");
-			System.out.println(pronosticos.get(i).resultadoP(pronosticos.get(i).getGanoep1(), pronosticos.get(i).getGanoep2(), ronda1.partido.get(i)));
-			
-			System.out.println("");
+				System.out.println("La ronda es:"+ronda.numero.get(i));
+				System.out.println("Jugo: "+ronda.partido.get(i).equipo1.getNombre()+", Contra: "+ronda.partido.get(i).equipo2.getNombre());
+				ronda.partido.get(i);
+				System.out.println("El ganador del partido fue: "+Partido.resultado(ronda.partido.get(i).getGolesEquipo1(), ronda.partido.get(i).getGolesEquipo2()));
+				System.out.println("");
+				
+				
+				String resultado=Partido.resultado(ronda.partido.get(i).getGolesEquipo1(), ronda.partido.get(i).getGolesEquipo2());
+				String p1=pronosticos.get(i).getGanoep1();
+				String p2=pronosticos.get(i).getGanoep2();
+				String p3=pronosticos.get(i).getEmpate();
+								
+				
+				
+				System.out.println("Nombre de la persona: "+pronosticos.get(i).getNombre());
+				pronosticos.get(i);
+				System.out.println("Obtuvo en pronostico: "+pronosticos.get(i).resultado(p1, p2, p3, resultado));
+				int p=pronosticos.get(i).resultado(p1, p2, p3, resultado);
+				puntaje+=p;
+				System.out.println("El puntaje acumulado es "+puntaje);
+				System.out.println("");
+				
+				
+				//Si existe mas de una persona que da pronosticos de los 4 partidos
+				//Se verifica y se ejecuta la muestra
+				
+				if(pronosticos.size()>4) {
+					int auxiliar=pronosticos.size()/4;
+					int aux=auxiliar*4-4;
+					
+					String f1=pronosticos.get(i+aux).getGanoep1();
+					String f2=pronosticos.get(i+aux).getGanoep2();
+					String f3=pronosticos.get(i+aux).getEmpate();
+					
+					System.out.println("Nombre de la persona: "+pronosticos.get(i+aux).getNombre());
+					pronosticos.get(i+aux);
+					System.out.println("Obtuvo en pronostico: "+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado));
+					
+					punt=punt+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado);
+					System.out.println("El puntaje acumulado es "+punt);
+					System.out.println("");
+					
+				}
+				
+				
+				
 		}
 		
+		
+		
+				
 		
 	}
 }
