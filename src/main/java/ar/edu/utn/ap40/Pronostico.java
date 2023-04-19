@@ -33,26 +33,26 @@ public class Pronostico {
 	
 	
 	
-	public int resultado(String marca1, String marca2, String marcaempate, String resultado) {
+	public int resultado(String marca1, String marca2, String marcaempate, String resultado, int pGanar, int pPerder, int pEmpatar) {
 		String prediccion="";
-		int puntaje=0;
+		int puntaje=pPerder;
 		
 		if(marca1.equals("X")) {
 			prediccion="Gano el Equipo 1";
 			if(resultado==prediccion) {
-				puntaje++;
+				puntaje=pGanar;
 			}
 		}
 		else if(marca2.equals("X")) {
 			prediccion="Gano el Equipo 2";
 			if(resultado==prediccion) {
-				puntaje++;
+				puntaje=pGanar;
 			}
 		}
 		else if(marcaempate.equals("X")) {
 			prediccion="Empate";
 			if(resultado==prediccion) {
-				puntaje++;
+				puntaje=pEmpatar;
 			}
 		}
 		

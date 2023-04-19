@@ -43,7 +43,11 @@ class Test_ejercicio {
 		pro.setGanoep2("0");
 		pro.setEmpate("X");
 		
-		int puntaje=pro.resultado(pro.getGanoep1(), pro.getGanoep2(), pro.getEmpate(), resul1);
+		int pganar=2;
+		int pperder=0;
+		int pempatar=1;
+		
+		int puntaje=pro.resultado(pro.getGanoep1(), pro.getGanoep2(), pro.getEmpate(), resul1,pganar,pperder,pempatar);
 		
 		Assertions.assertEquals(0, puntaje);
 		

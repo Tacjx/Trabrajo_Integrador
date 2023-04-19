@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
@@ -20,6 +21,8 @@ public class Main {
 		//El programa no indica ninguna error por el momento, corre bien.
 		
 				
+		
+		Scanner leer=new Scanner(System.in);
 		
 		String rondas=new File("C:\\Users\\Usuario\\Desktop\\Git\\resultados.csv").getAbsolutePath();
 		
@@ -65,6 +68,18 @@ public class Main {
 		String pronostico=new File("C:\\Users\\Usuario\\Desktop\\Git\\pronosticosvarios.csv").getAbsolutePath();
 		ArrayList<Pronostico>pronosticos=new ArrayList<Pronostico>();
 		
+		System.out.println("Indicar los puntos a otorgar por cada caso de pronostico:");
+		
+		System.out.println("Caso Ganar:");
+		int Pganar=leer.nextInt();
+		
+		System.out.println("Caso Perder:");
+		int Pperder=leer.nextInt();
+		
+		System.out.println("Caso Empatar");
+		int Pempatar=leer.nextInt();
+		
+		
 		
 		try {
 			for(String linea:Files.readAllLines(Paths.get(pronostico))) {
@@ -101,7 +116,11 @@ public class Main {
 		
 		int puntaje=0;
 		int punt=0;
+		int rondalograda=0;
+		int rondaL=0;
 		
+		
+		int totalronda=0;
 		
 		System.out.println("Partidos Jugados en la Ronda:");
 		for(int i=0;i<ronda.numero.size();i++) {
@@ -113,6 +132,18 @@ public class Main {
 				System.out.println("El ganador del partido fue: "+Partido.resultado(ronda.partido.get(i).getGolesEquipo1(), ronda.partido.get(i).getGolesEquipo2()));
 				System.out.println("");
 				
+				String resul=Partido.resultado(ronda.partido.get(i).getGolesEquipo1(), ronda.partido.get(i).getGolesEquipo2());
+				
+				//Se establece el total de puntaje que se obtendria en caso de acertar a todos los pronosticos
+				if(resul=="Gano el Equipo 1" || resul=="Gano el Equipo 2") {
+					totalronda+=Pganar;
+					
+				}else {
+					totalronda+=Pempatar;
+				}
+				
+				
+				//Se imprimen  las personas del pronostico
 				
 				String resultado=Partido.resultado(ronda.partido.get(i).getGolesEquipo1(), ronda.partido.get(i).getGolesEquipo2());
 				String p1=pronosticos.get(i).getGanoep1();
@@ -123,11 +154,25 @@ public class Main {
 				
 				System.out.println("Nombre de la persona: "+pronosticos.get(i).getNombre());
 				pronosticos.get(i);
-				System.out.println("Obtuvo en pronostico: "+pronosticos.get(i).resultado(p1, p2, p3, resultado));
-				int p=pronosticos.get(i).resultado(p1, p2, p3, resultado);
+				System.out.println("Obtuvo en pronostico: "+pronosticos.get(i).resultado(p1, p2, p3, resultado,Pganar,Pperder,Pempatar));
+				int p=pronosticos.get(i).resultado(p1, p2, p3, resultado,Pganar,Pperder,Pempatar);
 				puntaje+=p;
 				System.out.println("El puntaje acumulado es "+puntaje);
 				System.out.println("");
+				
+				//Se comprueba si se acerto totalmente en la ronda y se suman puntos extra
+				if(puntaje==totalronda) {
+					puntaje+=5;
+					System.out.println("Obtuvo puntos extra por acertar en toda la ronda, sus puntos son: "+puntaje);
+					rondalograda+=1;
+				}
+				
+				//Si el numero de rondas acertadas es igual al total de rondas se suman mas puntos
+				if(rondalograda==ronda.numero.size()) {
+					puntaje+=10;
+					System.out.println("Logro completar toda la fase, obtuvo "+puntaje+" puntos");
+					
+				}
 				
 				
 				//Si existe mas de una persona que da pronosticos de los 4 partidos
@@ -143,21 +188,32 @@ public class Main {
 					
 					System.out.println("Nombre de la persona: "+pronosticos.get(i+aux).getNombre());
 					pronosticos.get(i+aux);
-					System.out.println("Obtuvo en pronostico: "+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado));
+					System.out.println("Obtuvo en pronostico: "+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado, Pganar, Pperder, Pempatar));
 					
-					punt=punt+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado);
+					punt=punt+pronosticos.get(i+aux).resultado(f1, f2, f3, resultado,Pganar,Pperder,Pempatar);
 					System.out.println("El puntaje acumulado es "+punt);
 					System.out.println("");
 					
+					if(punt==totalronda) {
+						punt+=5;
+						System.out.println("Obtuvo puntos extra por acertar en toda la ronda, sus puntos son: "+punt);
+						rondaL+=1;
+					}
+					
+					
 				}
 				
+				if(rondaL==ronda.numero.size()) {
+					punt+=10;
+					System.out.println("Logro completar toda la fase, obtuvo "+punt+" puntos");
+				}
 				
+				leer.close();
 				
 		}
 		
+		//al final hacer la conexcion con mysql
 		
-		
-				
 		
 	}
 }
