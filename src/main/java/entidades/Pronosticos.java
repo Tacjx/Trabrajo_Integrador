@@ -5,7 +5,6 @@ public class Pronosticos {
 	private int id;
 	private String ronda;
 	private String nombre;
-	private String pronostico;
 	private int puntaje;
 	
 	
@@ -13,10 +12,9 @@ public class Pronosticos {
 		
 	}
 	
-	public Pronosticos(String ronda, String nombre, String pronostico, int puntaje) {
+	public Pronosticos(String ronda, String nombre, int puntaje) {
 		this.ronda=ronda;
 		this.nombre=nombre;
-		this.pronostico=pronostico;
 		this.puntaje=puntaje;
 		
 	}
@@ -52,14 +50,6 @@ public class Pronosticos {
 	}
 	
 	
-	public String getPronostico() {
-		return pronostico;
-	}
-
-	public void setPronostico(String pronostico) {
-		this.pronostico = pronostico;
-	}
-	
 	
 	public int getPuntaje() {
 		return puntaje;
@@ -70,8 +60,9 @@ public class Pronosticos {
 	}
 	
 	
+	@Override
 	public String toString() {
-		return "Pronosticos[id=" + id + ", ronda=" + ronda + ", nombre=" + nombre + ", pronostico=" + pronostico + ", puntaje=" + puntaje + "]";
+		return "Pronosticos[id=" + id + ", ronda=" + ronda + ", nombre=" + nombre + ", puntaje=" + puntaje + "]";
 	}
 
 }

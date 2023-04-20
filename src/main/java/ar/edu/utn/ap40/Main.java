@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import entidades.Pronosticos;
+import servicios.PronosticosService;
 
 public class Main {
 
@@ -174,6 +176,13 @@ public class Main {
 					
 				}
 				
+				String ron="";
+				String nom="";
+				int pun=puntaje;
+				Pronosticos Pron=new Pronosticos(ron,nom,pun);
+				PronosticosService proservice=new PronosticosService();
+				proservice.crearPronosticos(Pron);
+				
 				
 				//Si existe mas de una persona que da pronosticos de los 4 partidos
 				//Se verifica y se ejecuta la muestra
@@ -210,10 +219,14 @@ public class Main {
 				
 				leer.close();
 				
+				String r="";
+				String n="";
+				int pu=0;
+				Pronosticos Pro=new Pronosticos(r,n,pu);
+				PronosticosService pservice=new PronosticosService();
+				proservice.crearPronosticos(Pro);
+				
 		}
-		
-		//al final hacer la conexcion con mysql
-		
 		
 	}
 }
